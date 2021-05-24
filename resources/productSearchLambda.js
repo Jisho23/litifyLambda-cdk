@@ -2,7 +2,7 @@ console.log('Loading function');
 
 var AWS = require('aws-sdk');
 var dynamo = new AWS.DynamoDB.DocumentClient();
-var tableName = "products-lambda-table"
+const tableName = process.env.BUCKET;
 var tags = 'tags'
 
 function formatTagFilterExpression(tagsArray)
