@@ -1,8 +1,6 @@
-# Welcome to your CDK JavaScript project!
+# Litify Products AWS Lambda Coding Challenge
 
-This is a blank project for JavaScript development with CDK.
-
-The `cdk.json` file tells the CDK Toolkit how to execute your app. The build step is not required when using JavaScript.
+This is a small demo for the litify coding challenge refactored into CDK.
 
 ## Useful commands
 
