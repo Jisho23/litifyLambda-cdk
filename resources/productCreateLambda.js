@@ -10,7 +10,6 @@ function ifNull(str)
    return str === null || str.match(/^ *$/) !== null;
 }
 
-
 // Generate random string for id
 function generateId(length, chars) {
     var result = '';
