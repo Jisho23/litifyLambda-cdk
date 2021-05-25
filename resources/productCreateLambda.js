@@ -34,9 +34,6 @@ function handleResponse(err, data, callback)
     else{    
       var response = {
         "statusCode": 201,
-        "headers": {
-            "my_header": "my_value"
-        },
         "body": JSON.stringify(data),
         "isBase64Encoded": false
         }; 
@@ -55,6 +52,6 @@ exports.productCreate = function(event, context, callback) {
         Item: body
     }
     dynamo.put(newItem, function(err, data) {
-        handleResponse(err, body, callback)
+        handleResponse(err, data, callback)
     });
 };

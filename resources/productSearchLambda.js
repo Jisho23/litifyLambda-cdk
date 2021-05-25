@@ -22,17 +22,27 @@ function formatExpressionAttrributeValues(tagsArray)
     return values
 }
 
+function handleResponse(err, data, callback)
+{
+    if (err){callback(Error(err));} 
+    else{    
+      var response = {
+        "statusCode": 200,
+        "body": JSON.stringify({'_reports': data['items']}),
+        "isBase64Encoded": false
+        }; 
+        callback(null, response)
+    } 
+}
+
 exports.productSearch = function(event, context, callback) {
-    console.log('Received event:', JSON.stringify(event['tags'], null, 2));
-    var tagsArray = event[tags].split(',');
+    console.log('Received event:', JSON.stringify(event, null, 2));
+    var tagsArray = event['queryStringParameters']['tags'].split(',');
     var params = {
         TableName : tableName,
         FilterExpression: formatTagFilterExpression(tagsArray),
         ExpressionAttributeValues : formatExpressionAttrributeValues(tagsArray)
     };
     console.log('Searching db with params:', JSON.stringify(params, null, 2))
-    dynamo.scan(params, function(err, data) {
-      if (err) console.log(err);
-      else callback(null, {"_records" : data.Items});
-    });
+    dynamo.scan(params, function(err, data) { handleResponse(err, data, callback) });
 };
