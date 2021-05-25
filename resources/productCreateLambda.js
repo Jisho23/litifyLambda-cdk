@@ -28,17 +28,33 @@ function validateEvent(event, callback)
     }
 }
 
+function handleResponse(err, data, callback)
+{
+    if (err){callback(Error(err));} 
+    else{    
+      var response = {
+        "statusCode": 201,
+        "headers": {
+            "my_header": "my_value"
+        },
+        "body": JSON.stringify(data),
+        "isBase64Encoded": false
+        }; 
+        callback(null, response)
+    } 
+}
+
 // Handler
 exports.productCreate = function(event, context, callback) {
-    console.log('Received event:', JSON.stringify(event, null, 2));
-    validateEvent(event, callback)
-    event['id'] = generateId(9, '0123456789')
+    var body = JSON.parse(event['body'])
+    console.log('Received event:', body, null, 2);
+    validateEvent(body, callback)
+    body['id'] = generateId(9, '0123456789')
     var newItem = {
         TableName: tableName,
-        Item: event
+        Item: body
     }
     dynamo.put(newItem, function(err, data) {
-      if (err) callback(Error(err));
-      else     callback(null, event)
+        handleResponse(err, body, callback)
     });
 };
