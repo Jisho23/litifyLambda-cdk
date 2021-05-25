@@ -52,6 +52,6 @@ exports.productCreate = function(event, context, callback) {
         Item: body
     }
     dynamo.put(newItem, function(err, data) {
-        handleResponse(err, data, callback)
+        handleResponse(err, body, callback)
     });
 };

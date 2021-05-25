@@ -25,10 +25,11 @@ function formatExpressionAttrributeValues(tagsArray)
 function handleResponse(err, data, callback)
 {
     if (err){callback(Error(err));} 
-    else{    
+    else{
+      console.log("Found:", data)    
       var response = {
         "statusCode": 200,
-        "body": JSON.stringify({'_reports': data['items']}),
+        "body": JSON.stringify({'_reports': data['Items']}),
         "isBase64Encoded": false
         }; 
         callback(null, response)
@@ -37,7 +38,7 @@ function handleResponse(err, data, callback)
 
 exports.productSearch = function(event, context, callback) {
     console.log('Received event:', JSON.stringify(event, null, 2));
-    var tagsArray = event['queryStringParameters']['tags'].split(',');
+    var tagsArray = event['multiValueQueryStringParameters']['tags'];
     var params = {
         TableName : tableName,
         FilterExpression: formatTagFilterExpression(tagsArray),
