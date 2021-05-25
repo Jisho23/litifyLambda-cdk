@@ -2,7 +2,7 @@ console.log('Loading function');
 
 var AWS = require('aws-sdk');
 var dynamo = new AWS.DynamoDB.DocumentClient();
-var tableName = "products-lambda-table"
+const tableName = process.env.TABLE;
 var invalidBodyRequestString = "Invalid request body"
 
 function ifNull(str)

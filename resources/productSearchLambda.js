@@ -2,7 +2,7 @@ console.log('Loading function');
 
 var AWS = require('aws-sdk');
 var dynamo = new AWS.DynamoDB.DocumentClient();
-const tableName = process.env.BUCKET;
+const tableName = process.env.TABLE;
 var tags = 'tags'
 
 function formatTagFilterExpression(tagsArray)
